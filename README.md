@@ -11,6 +11,7 @@ It scrapes a manga website by using the request and beautiful soup library. Once
 ## Example
 
 Run the python script
+
 ![image](https://user-images.githubusercontent.com/25711110/231508078-7a141904-e59b-4058-b2d1-f69ee3649c81.png)
 
 ### Results:
