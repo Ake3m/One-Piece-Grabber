@@ -42,21 +42,31 @@ if __name__=="__main__":
                 for image in image_container:
                     image_links.append(image.get('src')) #gets the src link of each image
                 os.mkdir('./{}'.format(target_number)) #make new directory
+                #uncomment for termux support
+                #os.mkdir('.//data/data/com.termux/files/home/storage/shared/{}'.format(target_number)) #make new directory
                 count=0
                 # adds a new container for the list of images from Pillow
                 manga_pages=[]
                 for link in image_links:
                     content_file=requests.get(link,stream=True)
                     content_file.raise_for_status()
+                    #uncomment for termux
+                    #with open(Path('/data/data/com.termux/files/home/storage/shared/{}/{}.png'.format(target_number,count)), 'wb') as f:
                     with open(Path('./{}/{}.png'.format(target_number,count)), 'wb') as f:
                         f.write(content_file.content)
                     temp_image=Image.open(r'./{}/{}.png'.format(target_number, count))
+                    #uncomment for termux support
+                    #temp_image=Image.open(r'/data/data/com.termux/files/home/storage/shared/{}/{}.png/data/data/com.termux/files/home/storage/shared/{}/{}.png'.format(target_number, count))
                     manga_pages.append(temp_image.convert('RGB'))
                     count+=1
                 print("Download Complete. Converting to PDF, please wait...")
                 #add conversion code
                 manga_pages[0].save(r'./chapter_{}.pdf'.format(target_number), save_all=True, append_images=manga_pages[1:]) #saves as pdf and appends pages
+                #uncomment for termux support
+                #manga_pages[0].save(r'/data/data/com.termux/files/home/storage/shared/chapter_{}.pdf'.format(target_number), save_all=True, append_images=manga_pages[1:]) #saves as pdf and appends pages
                 shutil.rmtree('./{}'.format(target_number)) #removes the images folder we created.
+                #uncomment for termux support
+                #shutil.rmtree('/data/data/com.termux/files/home/storage/shared/{}'.format(target_number)) #removes the images folder we created.
                 print("Conversion complete. Happy reading!")
             else:
                 print("Something went wrong")
