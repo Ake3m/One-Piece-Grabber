@@ -43,7 +43,7 @@ if __name__=="__main__":
                     image_links.append(image.get('src')) #gets the src link of each image
                 os.mkdir('./{}'.format(target_number)) #make new directory
                 #uncomment for termux support
-                #os.mkdir('.//data/data/com.termux/files/home/storage/shared/{}'.format(target_number)) #make new directory
+                #os.mkdir('./data/data/com.termux/files/home/storage/shared/{}'.format(target_number)) #make new directory
                 count=0
                 # adds a new container for the list of images from Pillow
                 manga_pages=[]
@@ -56,7 +56,7 @@ if __name__=="__main__":
                         f.write(content_file.content)
                     temp_image=Image.open(r'./{}/{}.png'.format(target_number, count))
                     #uncomment for termux support
-                    #temp_image=Image.open(r'/data/data/com.termux/files/home/storage/shared/{}/{}.png/data/data/com.termux/files/home/storage/shared/{}/{}.png'.format(target_number, count))
+                    #temp_image=Image.open(r'/data/data/com.termux/files/home/storage/shared/{}/{}.png'.format(target_number, count))
                     manga_pages.append(temp_image.convert('RGB'))
                     count+=1
                 print("Download Complete. Converting to PDF, please wait...")
