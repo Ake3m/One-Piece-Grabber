@@ -1,5 +1,6 @@
-import requests, bs4, os
+import requests, bs4, os, shutil
 from pathlib import Path
+from PIL import Image
 
 
 if __name__=="__main__":
@@ -42,13 +43,21 @@ if __name__=="__main__":
                     image_links.append(image.get('src')) #gets the src link of each image
                 os.mkdir('./{}'.format(target_number)) #make new directory
                 count=0
+                # adds a new container for the list of images from Pillow
+                manga_pages=[]
                 for link in image_links:
                     content_file=requests.get(link,stream=True)
                     content_file.raise_for_status()
                     with open(Path('./{}/{}.png'.format(target_number,count)), 'wb') as f:
                         f.write(content_file.content)
+                    temp_image=Image.open(r'./{}/{}.png'.format(target_number, count))
+                    manga_pages.append(temp_image.convert('RGB'))
                     count+=1
-                print("Download Complete. Thank you!")
+                print("Download Complete. Converting to PDF, please wait...")
+                #add conversion code
+                manga_pages[0].save(r'./chapter_{}.pdf'.format(target_number), save_all=True, append_images=manga_pages[1:]) #saves as pdf and appends pages
+                shutil.rmtree('./{}'.format(target_number)) #removes the images folder we created.
+                print("Conversion complete. Happy reading!")
             else:
                 print("Something went wrong")
     else:

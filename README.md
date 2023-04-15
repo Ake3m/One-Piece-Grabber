@@ -17,6 +17,9 @@ Run the python script
 ### Results:
 ![image](https://user-images.githubusercontent.com/25711110/231508430-8aeb989e-da2f-4f6d-bbeb-76e7a1a5a81f.png)
 
+## Update:
+Instead of individual images, produces a pdf of the manga chapter for convenience. 
+
 
 
 
